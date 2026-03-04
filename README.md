@@ -69,14 +69,14 @@ streamlit run ui.py
 ```bash
 git clone https://github.com/jebat8101/Robin-2.3.git
 cd Robin-2.3.git
+
 cp .env.example .env
 nano .env
+
 pip3 install -r requirements.txt
 
 python3 cli.py cli -m gpt-4.1 -q "ransomware payments" -t 12
-
 or 
-
 python3 cli.py export-json -m gpt-5-mini -q "cybercrime" -t 5 
 ```
 - Open your browser and navigate to `http://localhost:8501`
@@ -108,6 +108,7 @@ Open an Issue for any of these situations:
 - LLM Prompt inspiration from [OSINT-Assistant](https://github.com/AXRoux/OSINT-Assistant) repository.
 - Logo Design by my friend [Tanishq Rupaal](https://github.com/Tanq16/)
 - Workflow Design by [Chintan Gurjar](https://www.linkedin.com/in/chintangurjar)
+
 
 
 
