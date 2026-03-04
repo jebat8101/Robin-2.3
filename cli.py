@@ -5,6 +5,8 @@ Usage: python cli.py "your search query" [options]
 """
 
 import argparse
+import csv
+import json
 import re
 import sys
 from datetime import datetime
@@ -40,30 +42,58 @@ def _write_output_folder(
     scraped: dict,
     summary: str,
 ) -> None:
-    """Write all pipeline results into the output folder."""
+    """Write all pipeline results into the output folder (JSON, TXT, CSV for each)."""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Refined query: json, txt
+    (out_dir / "refined_query.json").write_text(
+        json.dumps({"refined_query": refined, "original_query": query}, indent=2), encoding="utf-8"
+    )
     (out_dir / "refined_query.txt").write_text(refined, encoding="utf-8")
+
+    # Summary: json, txt (summary.md kept for readability)
+    (out_dir / "summary.json").write_text(
+        json.dumps({"summary": summary, "query": query, "refined_query": refined}, indent=2), encoding="utf-8"
+    )
     (out_dir / "summary.md").write_text(summary, encoding="utf-8")
+    (out_dir / "summary.txt").write_text(summary, encoding="utf-8")
 
-    with (out_dir / "search_results.txt").open("w", encoding="utf-8") as f:
-        for r in results:
-            f.write(f"{r.get('link', '')}\t{r.get('title', '')}\n")
+    def _write_result_set(name: str, data: list) -> None:
+        keys = ("link", "title")
+        (out_dir / f"{name}.json").write_text(
+            json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8"
+        )
+        with (out_dir / f"{name}.txt").open("w", encoding="utf-8") as f:
+            for r in data:
+                f.write(f"{r.get('link', '')}\t{r.get('title', '')}\n")
+        with (out_dir / f"{name}.csv").open("w", encoding="utf-8", newline="") as f:
+            w = csv.DictWriter(f, fieldnames=keys, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(data)
 
-    with (out_dir / "filtered_results.txt").open("w", encoding="utf-8") as f:
-        for r in filtered:
-            f.write(f"{r.get('link', '')}\t{r.get('title', '')}\n")
+    _write_result_set("search_results", results)
+    _write_result_set("filtered_results", filtered)
 
+    # Scraped: per-page txt, combined txt/json/csv
     scraped_dir = out_dir / "scraped"
     scraped_dir.mkdir(exist_ok=True)
+    scraped_list = []
     for url, content in scraped.items():
         safe = _safe_filename(url.replace(".onion", "").replace("http://", "").replace("https://", ""))
         (scraped_dir / f"{safe}.txt").write_text(content, encoding="utf-8")
+        scraped_list.append({"url": url, "content": content})
 
+    (out_dir / "scraped_combined.json").write_text(
+        json.dumps({"pages": scraped_list}, indent=2, ensure_ascii=False), encoding="utf-8"
+    )
     with (out_dir / "scraped_combined.txt").open("w", encoding="utf-8") as f:
         for url, content in scraped.items():
             f.write(f"\n{'='*60}\n{url}\n{'='*60}\n\n{content}\n")
+    with (out_dir / "scraped_combined.csv").open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["url", "content"])
+        w.writeheader()
+        w.writerows(scraped_list)
 
 
 def _run_pipeline(
