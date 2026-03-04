@@ -1,0 +1,128 @@
+Input Query:
+malaysia data or crime or company
+
+Source Links Referenced for Analysis
+- http://leaksndi6i6m2ji6ozulqe4imlrqn6wrgjlhxe25vremvr3aymm4aaid.onion (Hackeddatabases store - hacked DB listings)
+- http://tymx6o5bfulu7iyla4lsfzxfblaiipteip5upn2cj4ixziarjfdcspad.onion (data Database Leak information)
+- http://darklmmmfuonklpy6s3tmvk5mrcdi7iapaw6eka45esmoryiiuug6aid.onion (Dark Leak Market)
+- http://rnsm777cifbfsrvcwpvexevh2l6daaf5htl4mpnrugolmvyitsqlauad.onion/ (RansomEXX v2 index)
+- http://ransomlookumjrc6erzqn467lkcu2t5h4enjzfigvsxrrktxicysi2yd.onion/group/qilin (RansomLook — Qilin group page)
+- http://aby6efzmp7jzbwgidgqc6ghxi2vwpo6d7eaood5xuoxutrfofsmzcjqd.onion (Dark Leak Market)
+- http://arcuufpr5xxbbkin4mlidt7itmr6znlppk63jbtkeguuhszmc5g7qdyd.onion?cat=6 (LEAKED – Arcus)
+- http://rnsm777cdsjrsdlbs4v5qoeppu3px6sb2igmh53jzrx7ipcrbjz5b2ad.onion/2024/09/14/retemex/ (Retemex / RansomEXX v2 victim post — Retemex)
+- http://rnsm777cdsjrsdlbs4v5qoeppu3px6sb2igmh53jzrx7ipcrbjz5b2ad.onion/2024/08/10/brontoo-technology-solutions/ (Brontoo Technology Solutions / RansomEXX post)
+- http://rnsm777cdsjrsdlbs4v5qoeppu3px6sb2igmh53jzrx7ipcrbjz5b2ad.onion/2021/07/12/walsin/index.html (Walsin Tech / RansomEXX post)
+- http://s5xf5q2qbxxts2ytugxr3fcumd2r66z3yp4rzlzscmunyot2ibtlb3id.onion/articles/2026-02-09_23-11-19_How_attackers_build_targeted_wordlists.html (How attackers build targeted wordlists — MICRO-FILES)
+- http://novaoddh3vxylxqpsfdjprliknbzgbkv6nkazpzu3cvykrgpyzuywryd.onion (Nova GBlog)
+- http://d2o66mf5f5jpgyaw6dmuynpvrxyrvsez4bygvu5sdlxwpk3f2vidbtyd.onion/captcha.php (Hacking Network - Secure Market access)
+- http://up722g5qxygdy6lk2dnlfm7yssdghw2f3zaz4dbjpcpfuf4uzqms4fqd.onion (Reputable DarkNet Hacking Team | Telegram: hackngteam)
+- http://leak7y2247fj7dbb35rpfyxuyaqtwbshiwxp6h35ttzlhrxmhvi4fead.onion (Nova GBlog mirror)
+- http://wroq6cw32bybagx2df7ojwrietlxa6i2tpknwssedu3aaswhzjucwnqd.onion (Hacking Team | Hackers for Hire)
+- http://iqosv7ozbt23jfbv22annsw6bqsvcjncmpmqtbfjy6d5s4e66qku3sad.onion/datashop (dataShop — buy Facebook accounts / databases)
+- http://darkbayx7a4sosoo4hqvoljqelgkusjlrqmt237ls6hndbplmel55oad.onion (DarkBay marketplace)
+- http://cgs5po5fp64bha5vz2wq6wtrlphpqtugo64sldu7ubvoevy52u5d6qyd.onion (Syndicate Marketplace)
+- http://wmvrpbarmnghd5oloyzxfnl6nt537hj2bhcjwt3cxvs25vuy42yxj2id.onion (HackTeam - Reputable DarkNet Hacking Team)
+
+Investigation Artifacts (with context visible in the data)
+- AirAsia Ransomware Attack listing (Hackeddatabases store): "AirAsia Ransomware Attack airasia.com 5,149,385 $36" — indicates a marketed dataset claiming 5.15M AirAsia records (relevance to Malaysia).
+- Retemex RansomEXX victim post (rnsm777.../2024/09/14/retemex/): "Retemex ... 24,883 client records exposed in a breach, including passwords stored in plain text. DOWNLOAD (1.4MB). The password for each archive is: Vm14a2QxVXlVbGhVYWxwU1lteEtUMVJXWkc5WFp3" — archive password visible in post.
+- Brontoo Technology Solutions RansomEXX post (rnsm777.../2024/08/10/brontoo-technology-solutions/): victim profile and details on affected company (India tag).
+- Walsin Tech RansomEXX post (rnsm777.../2021/07/12/walsin/index.html): historic victim listing for RansomEXX.
+- RansomEXX v2 main site (rnsm777cifbfsrvc...onion/): RaaS / ransom postings across many countries; RansomEXX v2 branding "Safety Is An Illusion".
+- Qilin group (RansomLook page): multiple artifacts
+  - Jabber contact: qilin@exploit.im
+  - Tox ID: 7C35408411AEEBD53CDBCEBAB167D7B22F1E66614E89DFCB62EE835416F60E1BCD6995152B68
+  - Known ransom note filenames: DtMXQFOCos-RECOVER-README.txt, README-RECOVER-[rand]_2.txt, README-RECOVER-[rand].txt
+  - Hosted/leak URLs and status: e.g., http://ijzn3sicrcy7guixkzjkib4ukbiilwc3xhnmby4mcbccnsd7j2rekvqd.onion (Up 100%); http://pandora42btuwl...onion (Up 97%).
+  - Multiple FTP file-servers and credentials published (examples from page):
+    - ftp://dataShare:nX4aJxu3rYUMiLjCMtuJYTKS@85.209.11.49
+    - ftp://dataShare:2bTWYKNn7aK7Rqp9mnv3@188.119.66.189
+    - ftp://dataShare:ENqh0jBHKia2L22fxzivbhRL@64.176.162.76
+    - http://208.76.221.205/ (listed)
+    - Several other ftp:// entries with cleartext passwords (operational hosting of stolen data).
+- DataShop marketplace (iqosv7.../datashop): product listings and pricing for large datasets:
+  - "500M Facebook accounts $19.99", "235M TikTok accounts $69.99", "42M Instagram accounts $29.99", "70M Twitter accounts $39.99", "000Webhost database $89.99", "Ledger dump $199.99 — 1.3M private keys" — demonstrates commercial resale of large breaches.
+- DarkBay marketplace: active listing categories for hacking, databases, malware, services; sellers and stores (opportunity for trade/transfer of stolen data).
+- Hacking team / HackTeam group references: multiple onion pages advertising "Hackers for Hire" and Telegram contact "hackngteam" (potential vendor services to buy attacks or access).
+- "How attackers build targeted wordlists" article (s5xf5...onion) — published 2026-02-09; describes methodologies attackers use to build targeted wordlists from leaked data and OSINT (relevance to credential-stuffing and brute-force targeting).
+- Presence of Malaysia in victim/tag lists: several RansomEXX posts list a broad set of countries including "#malaysia" (rnsm777... posts), implying Malaysian entities are included among RansomEXX targeting or victim disclosure lists.
+- Several onion market names and indexes: Dark Leak Market, Arcus, Nova GBlog, Syndicate Marketplace — indicate multiple distribution channels for leaks.
+
+Key Insights (specific, actionable, evidence-based)
+1. Active commercialization of Malaysian-relevant breaches — immediate risk of credential misuse
+   - Evidence: Hackeddatabases store lists "AirAsia Ransomware Attack ... 5,149,385" and RansomEXX posts tag Malaysia among targeted countries; Retemex post (though a Mexico operator) appears on a RansomEXX victim index that includes #malaysia tags.
+   - Actionable impact: Malaysian companies (AirAsia and others) and their customers face elevated risk for credential-stuffing, phishing, fraud, and account takeover because large datasets are being openly sold for low prices.
+   - Recommended immediate actions: force password resets for exposed user subsets, implement/require MFA, add monitoring for credential-stuffing, and notify affected customers (coordinating with national CERT/industry regulator).
+
+2. RansomEXX / Qilin affiliate ecosystem is operational and leaking data on public file servers with weak OPSEC
+   - Evidence: RansomEXX v2 posts and RansomLook Qilin page publish multiple FTP URLs with cleartext credentials and an accessible onion file server listed as Up 100% and 97%. Jabber and Tox contact identifiers are published for communications.
+   - Actionable impact: The published FTP endpoints and file servers can be triaged to identify specific victim datasets and timestamps; the exposed credentials indicate poor OPSEC by the group and potential takedown/intervention points.
+   - Recommended immediate actions: log and monitor network traffic for connections to the listed IPs and FTP endpoints; coordinate with hosting providers/law enforcement to seize or sinkhole active file servers; collect sample files for victim identification and forensic classification.
+
+3. Attackers are using targeted wordlist construction from leaked data — internal credential patterns increase brute-force risk
+   - Evidence: 2026 MICRO-FILES article "How attackers build targeted wordlists" documents attacker practices (using leaked datasets, company naming conventions, metadata) to craft high-yield wordlists.
+   - Actionable impact: Password policies that permit predictable corporate patterns (e.g., employee+year, company abbreviations) are at higher risk. Plaintext passwords in leaks (Retemex: plain text passwords) dramatically increase the probability of successful reuse across services.
+   - Recommended immediate actions: enforce strong password complexity and rotation, disable legacy authentication, deploy account lockout/throttling, and scan leaked datasets for company-specific patterns to block likely guesses.
+
+4. Multiple marketplaces and "hacker-for-hire" services lower attacker acquisition cost and increase targeting speed
+   - Evidence: DataShop and DarkBay listings selling millions of accounts for low prices and HackTeam offering services/Telegram contact.
+   - Actionable impact: Attackers can buy large volumes of account credentials and hire services to exploit them. This speeds up targeted campaigns against corporate or government entities in Malaysia.
+   - Recommended immediate actions: monitor dark marketplaces for mentions of specific company domains/email sets; proactively hunt for known stolen credentials mapped to corporate accounts; preemptively block bulk-created or suspicious accounts.
+
+5. Operational intelligence opportunities: specific IOCs exist for immediate defensive and investigative use
+   - Evidence: archive password for Retemex downloads (Vm14a2QxVXlVbGhVYWxwU1lteEtUMVJXWkc5WFp3), Jabber (qilin@exploit.im), Tox ID, cleartext FTP credentials and IPs, known onion URLs.
+   - Actionable impact: These artifacts can be used to search, correlate, and recover leaked files, attribute actors, and identify additional victims.
+   - Recommended immediate actions: ingest these artifacts into SIEM/threat-intel platforms, create detection rules for outbound connections to listed IPs and FTP patterns, and use the archive password as a search term on darkweb indexes to find the specific dataset.
+
+Next Steps — investigative actions and search queries
+Immediate investigative steps (technical and coordination)
+1. Containment & detection
+   - Block/monitor outbound traffic (for corporate networks) to the following IPs and ftp endpoints seen on Qilin page: 85.209.11.49, 188.119.66.189, 176.113.115.97, 185.39.17.75, 185.196.10.52, 185.196.10.19, 64.176.162.76, 208.76.221.205, 176.113.115.209 (create IDS/IPS signatures for FTP with usernames dataShare).
+   - Detection queries: search firewall/proxy/IDS logs for connections to those IPs, and for outbound FTP attempts with username "dataShare".
+   - Authentication logs: search for successful/failed login attempts using enumerated email lists and the leaked plain-text passwords (if lawfully obtained) for credential stuffing signatures.
+
+2. Darkweb collection & triage
+   - Use the archive password (Vm14a2QxVXlVbGhVYWxwU1lteEtUMVJXWkc5WFp3) as a search term on darkweb indexes and marketplaces to locate the specific Retemex archive and correlate victims.
+   - Fetch (only via authorized/legal channels or through law enforcement/CERT) samples of the Retemex and AirAsia listings to verify contents (PII, credentials, plaintext passwords) and map to internal user records.
+
+3. Notification & coordination
+   - Notify national CERT (e.g., MyCERT / CyberSecurity Malaysia), affected companies (AirAsia, other named victims), and relevant law enforcement with the artifacts and marketplace links.
+   - Request takedown/abuse actions for the FTP IPs and onion URLs via hosting providers/law enforcement.
+
+4. Threat hunting & mitigation
+   - Hunt for indicators in corporate logs: mentions of the Jabber contact qilin@exploit.im, the Tox ID, and the ransom note filenames (DtMXQFOCos-RECOVER-README.txt, README-RECOVER-[rand].txt).
+   - Enforce mandatory MFA for all remote access and customer accounts where possible; apply password resets for accounts matching leaked email sets; enable rate-limiting and bot-detection on authentication endpoints.
+
+Search queries to run on darkweb indexes / clearnet / internal systems
+- On darkweb indexes / search engines:
+  - "Vm14a2QxVXlVbGhVYWxwU1lteEtUMVJXWkc5WFp3"
+  - "Retemex" OR "Retemex RansomEXX"
+  - "RansomEXX v2" site:rnsm777* OR "RansomEXX v2"
+  - "qilin@exploit.im" OR "7C35408411AEEBD53CDBCEBA..." (Tox ID prefix)
+  - "AirAsia" "leak" "airasia.com" "5,149,385"
+  - "dataShare" ftp username + IPs (e.g., "ftp://dataShare:nX4aJxu3rYUMiLjCMtuJYTKS@85.209.11.49")
+  - "Vm14a2QxVXlVbGhV" (partial archive password) across onion mirrors and marketplaces
+  - "Data Shop" "500M Facebook accounts" "Ledger dump"
+
+- On clearnet / internal:
+  - search internal IAM / HR / customer DBs for email addresses or usernames matching any recovered sample sets from Retemex/AirAsia datasets
+  - SIEM queries: "destination.ip in {85.209.11.49,188.119.66.189,64.176.162.76,208.76.221.205,...}" AND protocol ftp
+  - Auth logs: "username IN <exposed_emails>" AND "login_result IN (success, failure)" within last 12 months
+  - Webserver logs: repeated failed login patterns from same IPs (credential-stuffing indicators)
+  - Threat intel platform search: "RansomEXX", "Qilin", "Retemex", "Brontoo Technology Solutions", "Walsin Tech", "AirAsia leak"
+
+Legal/operational note
+- Acquiring full leak archives or interacting with marketplaces should be done only through authorized channels (law enforcement, national CERT, or with legal counsel) to avoid evidence contamination and legal exposure.
+
+Useful short-term detection rules (examples)
+- Alert on outbound FTP/HTTP(S) traffic to the specific IPs listed above.
+- Alert on inbound/outbound connections to the listed onion gateway addresses if you operate Tor exits for monitoring.
+- Create a SIEM enrichment rule to flag usernames/emails discovered on any of the mentioned markets/shops and force password resets/MFA enrollment.
+
+Summary assessment (objective)
+- The dataset of onion posts and market listings shows an active, commercialized ecosystem for selling breached datasets that includes records associated with Malaysian-relevant entities (AirAsia listed; RansomEXX posts tag Malaysia). RansomEXX and affiliated groups (e.g., Qilin) are actively publishing stolen data with accessible hosting (FTP servers with cleartext creds and onion file servers). Attackers are also using advanced wordlist-building techniques derived from leaked data to improve credential-stuffing success. This combination raises immediate and medium-term risk to Malaysian companies and consumers — detection, remediation, and law-enforcement coordination are recommended as priority actions.
+
+If you want, I can:
+- produce a short IOC block (IPs, ftp URIs, jabber, Tox ID, archive password) formatted for direct ingestion into a SIEM/TI platform;
+- draft an incident notification template for affected Malaysian customers or partners; or
+- expand searches for specific Malaysian companies/domains you care about (supply domain names or company names).
