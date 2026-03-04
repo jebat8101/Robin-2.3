@@ -67,6 +67,7 @@ streamlit run ui.py
 ```
 ### CLI
 git clone https://github.com/jebat8101/Robin-2.3.git
+
 cd Robin-2.3.git
 
 cp .env.example .env
@@ -106,6 +107,7 @@ Open an Issue for any of these situations:
 - LLM Prompt inspiration from [OSINT-Assistant](https://github.com/AXRoux/OSINT-Assistant) repository.
 - Logo Design by my friend [Tanishq Rupaal](https://github.com/Tanq16/)
 - Workflow Design by [Chintan Gurjar](https://www.linkedin.com/in/chintangurjar)
+
 
 
 
