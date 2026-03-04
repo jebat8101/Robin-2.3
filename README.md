@@ -71,6 +71,7 @@ git clone https://github.com/jebat8101/Robin-2.3.git
 cd Robin-2.3.git
 
 cp .env.example .env
+
 nano .env
 
 pip3 install -r requirements.txt
@@ -107,6 +108,7 @@ Open an Issue for any of these situations:
 - LLM Prompt inspiration from [OSINT-Assistant](https://github.com/AXRoux/OSINT-Assistant) repository.
 - Logo Design by my friend [Tanishq Rupaal](https://github.com/Tanq16/)
 - Workflow Design by [Chintan Gurjar](https://www.linkedin.com/in/chintangurjar)
+
 
 
 
