@@ -75,6 +75,7 @@ cp .env.example .env
 nano .env
 
 pip3 install -r requirements.txt
+
 python3 cli.py cli -m gpt-4.1 -q "ransomware payments" -t 12
 
 or 
@@ -110,6 +111,7 @@ Open an Issue for any of these situations:
 - LLM Prompt inspiration from [OSINT-Assistant](https://github.com/AXRoux/OSINT-Assistant) repository.
 - Logo Design by my friend [Tanishq Rupaal](https://github.com/Tanq16/)
 - Workflow Design by [Chintan Gurjar](https://www.linkedin.com/in/chintangurjar)
+
 
 
 
