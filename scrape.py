@@ -104,3 +104,80 @@ def scrape_multiple(urls_data, max_workers=5):
                 continue
                 
     return results
+
+
+def _run_cli_pipeline(model: str, query: str, threads: int, preset: str = "threat_intel", output_path: str | None = None):
+    """Run the full pipeline: refine → search → filter → scrape → summarize. Used by CLI."""
+    from search import get_search_results
+    from llm import get_llm, refine_query, filter_results, generate_summary
+
+    print("Loading LLM...")
+    llm = get_llm(model)
+    print("Refining query...")
+    try:
+        refined = refine_query(llm, query)
+    except Exception:
+        print("LLM refine failed (e.g. quota exceeded). Using raw query.")
+        refined = query
+    print(f"Refined query: {refined}\n")
+    print("Searching dark web (Tor)...")
+    results = get_search_results(refined.replace(" ", "+"), max_workers=threads)
+    if not results:
+        print("No search results returned. Check Tor (e.g. sudo systemctl start tor) and network.")
+        return
+    print(f"Found {len(results)} results. Filtering with LLM...")
+    try:
+        filtered = filter_results(llm, refined, results)
+    except Exception:
+        print("LLM filter failed (e.g. quota exceeded). Using all results.")
+        filtered = results
+    print(f"Filtered to {len(filtered)} results. Scraping content...")
+    scraped = scrape_multiple(filtered, max_workers=threads)
+    if not scraped:
+        print("No content scraped from the filtered URLs.")
+        return
+    print("Generating summary...\n")
+    try:
+        summary = generate_summary(llm, query, scraped, preset=preset)
+        print("--- Investigation Summary ---\n")
+        print(summary)
+        if output_path:
+            with open(output_path, "w") as f:
+                f.write(summary)
+            print(f"\nSummary saved to: {output_path}")
+    except Exception:
+        print("LLM summary failed (e.g. quota exceeded). Saving raw scraped content.")
+        summary = f"# Raw scraped content (LLM summary unavailable)\n\nQuery: {query}\n\n"
+        for url, content in scraped.items():
+            summary += f"## {url}\n\n{content}\n\n"
+        print(summary)
+        if output_path:
+            with open(output_path, "w") as f:
+                f.write(summary)
+            print(f"\nRaw content saved to: {output_path}")
+
+
+if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser(description="Robin: Dark web search, scrape, and LLM summary.")
+    subparsers = parser.add_subparsers(dest="command", help="Command")
+    # CLI: interactive pipeline
+    cli = subparsers.add_parser("cli", help="Run full pipeline (refine → search → filter → scrape → summarize)")
+    cli.add_argument("-m", "--model", required=True, help="LLM model (e.g. gpt-4.1, claude-3-5-sonnet)")
+    cli.add_argument("-q", "--query", required=True, help="Dark web search query")
+    cli.add_argument("-t", "--threads", type=int, default=4, help="Scraping/search threads (default: 4)")
+    cli.add_argument("-p", "--preset", default="threat_intel",
+                     choices=["threat_intel", "ransomware_malware", "personal_identity", "corporate_espionage"],
+                     help="Summary preset (default: threat_intel)")
+    cli.add_argument("-o", "--output", dest="output_path", default=None, help="Save summary to file")
+    args = parser.parse_args()
+    if args.command == "cli":
+        _run_cli_pipeline(
+            model=args.model,
+            query=args.query,
+            threads=args.threads,
+            preset=args.preset,
+            output_path=args.output_path,
+        )
+    else:
+        parser.print_help()
