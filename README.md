@@ -77,7 +77,10 @@ pip3 install -r requirements.txt
 
 python3 cli.py cli -m gpt-4.1 -q "ransomware payments" -t 12
 or 
-python3 cli.py export-json -m gpt-5-mini -q "cybercrime" -t 5 
+python3 cli.py export-json -m gpt-5-mini -q "cybercrime" -t 5
+or
+python main.py export-json -m gpt-5-mini -q "malaysia data or crime or company" -t 5 -o my_data
+
 ```
 - Open your browser and navigate to `http://localhost:8501`
 
