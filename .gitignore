@@ -132,10 +132,6 @@ celerybeat.pid
 .venv
 env/
 venv/
-robinenv/
-
-# Robin CLI output folders (local runs)
-robin_output_*/
 ENV/
 env.bak/
 venv.bak/
@@ -179,6 +175,3 @@ cython_debug/
 
 # Vscode
 .vscode
-
-# Windows alternate data stream metadata
-*.Zone.Identifier
