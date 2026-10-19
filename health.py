@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from search import SEARCH_ENGINES, get_tor_session, USER_AGENTS
 from llm import get_llm
-from llm_utils import resolve_model_config
+from llm_utils import resolve_model_config, content_text, is_deepseek_endpoint, is_openrouter_endpoint
 
 
 def check_tor_proxy():
@@ -46,8 +46,10 @@ def check_llm_health(model_choice):
         provider = "Ollama (local)"
     elif "ChatOpenAI" in class_name:
         base_url = (ctor.get("base_url") or "").lower()
-        if "openrouter" in base_url:
+        if is_openrouter_endpoint(base_url, model_choice):
             provider = "OpenRouter"
+        elif is_deepseek_endpoint(base_url, model_choice):
+            provider = "DeepSeek"
         elif "llama" in base_url or "localhost" in base_url or "127.0.0.1" in base_url:
             provider = "llama.cpp (local)"
         else:
@@ -62,7 +64,7 @@ def check_llm_health(model_choice):
         response = llm.invoke("Say OK")
         latency_ms = round((time.time() - start) * 1000)
         # Extract text from response
-        text = getattr(response, "content", str(response))
+        text = content_text(getattr(response, "content", None)) or str(response)
         if text and len(text.strip()) > 0:
             return {
                 "status": "up",

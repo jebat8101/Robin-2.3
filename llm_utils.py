@@ -11,11 +11,26 @@ from config import (
     OLLAMA_BASE_URL,
     OPENROUTER_BASE_URL,
     OPENROUTER_API_KEY,
+    DEEPSEEK_API_KEY,
+    DEEPSEEK_BASE_URL,
     GOOGLE_API_KEY,
     OPENAI_API_KEY,
     ANTHROPIC_API_KEY,
     LLAMA_CPP_BASE_URL,
 )
+
+
+def content_text(value) -> str:
+    """Flatten LLM content to plain text. Newer Gemini models return content as a
+    list of typed blocks (e.g. [{"type": "text", "text": "..."}]) instead of a str."""
+    if value is None:
+        return ""
+    if isinstance(value, list):
+        return "".join(
+            str(block.get("text") or "") if isinstance(block, dict) else str(block)
+            for block in value
+        )
+    return str(value)
 
 
 class BufferedStreamingHandler(BaseCallbackHandler):
@@ -25,6 +40,7 @@ class BufferedStreamingHandler(BaseCallbackHandler):
         self.ui_callback = ui_callback
 
     def on_llm_new_token(self, token: str, **kwargs) -> None:
+        token = content_text(token)
         self.buffer += token
         if "\n" in token or len(self.buffer) >= self.buffer_limit:
             print(self.buffer, end="", flush=True)
@@ -86,13 +102,19 @@ _llm_config_map = {
         'class': ChatGoogleGenerativeAI,
         'constructor_params': {'model': 'gemini-2.5-flash', 'google_api_key': GOOGLE_API_KEY }
     },
-    'gemini-2.5-flash-lite': {
+    # gemini-2.5-flash-lite and gemini-2.5-pro return 404 for new API keys;
+    # replaced with the successors Google's error message names.
+    'gemini-3.5-flash': {
         'class': ChatGoogleGenerativeAI,
-        'constructor_params': {'model': 'gemini-2.5-flash-lite', 'google_api_key': GOOGLE_API_KEY}
+        'constructor_params': {'model': 'gemini-3.5-flash', 'google_api_key': GOOGLE_API_KEY}
     },
-    'gemini-2.5-pro': {
+    'gemini-3.5-flash-lite': {
         'class': ChatGoogleGenerativeAI,
-        'constructor_params': {'model': 'gemini-2.5-pro', 'google_api_key': GOOGLE_API_KEY}
+        'constructor_params': {'model': 'gemini-3.5-flash-lite', 'google_api_key': GOOGLE_API_KEY}
+    },
+    'gemini-3.1-pro-preview': {
+        'class': ChatGoogleGenerativeAI,
+        'constructor_params': {'model': 'gemini-3.1-pro-preview', 'google_api_key': GOOGLE_API_KEY}
     },
     'qwen3-80b-openrouter': {
         'class': ChatOpenAI,
@@ -148,6 +170,22 @@ _llm_config_map = {
             'model_name': 'x-ai/grok-4.1-fast',
             'base_url': OPENROUTER_BASE_URL,
             'api_key': OPENROUTER_API_KEY  # Use OpenRouter API key
+        }
+    },
+    'deepseek-chat': {
+        'class': ChatOpenAI,
+        'constructor_params': {
+            'model_name': 'deepseek-chat',
+            'base_url': DEEPSEEK_BASE_URL,
+            'api_key': DEEPSEEK_API_KEY,
+        }
+    },
+    'deepseek-reasoner': {
+        'class': ChatOpenAI,
+        'constructor_params': {
+            'model_name': 'deepseek-reasoner',
+            'base_url': DEEPSEEK_BASE_URL,
+            'api_key': DEEPSEEK_API_KEY,
         }
     },
     # 'llama3.2': {
@@ -236,6 +274,33 @@ def _is_set(v: Optional[str]) -> bool:
     return bool(v and str(v).strip() and "your_" not in str(v))
 
 
+def _normalized_url(url: Optional[str]) -> str:
+    return (url or "").strip().rstrip("/").lower()
+
+
+def is_deepseek_endpoint(base_url: Optional[str], model_key: str = "") -> bool:
+    """True for official DeepSeek, a custom DEEPSEEK_BASE_URL gateway, or a deepseek-* model key."""
+    if "deepseek" in (model_key or "").lower():
+        return True
+    url = _normalized_url(base_url)
+    if not url:
+        return False
+    if "deepseek" in url:
+        return True
+    return bool(DEEPSEEK_BASE_URL) and url == _normalized_url(DEEPSEEK_BASE_URL)
+
+
+def is_openrouter_endpoint(base_url: Optional[str], model_key: str = "") -> bool:
+    if "openrouter" in (model_key or "").lower():
+        return True
+    url = _normalized_url(base_url)
+    if not url:
+        return False
+    if "openrouter" in url:
+        return True
+    return bool(OPENROUTER_BASE_URL) and url == _normalized_url(OPENROUTER_BASE_URL)
+
+
 # Changed it so the GUI only loaded available models
 def get_model_choices() -> List[str]:
     """
@@ -248,14 +313,21 @@ def get_model_choices() -> List[str]:
     anthropic_ok = _is_set(ANTHROPIC_API_KEY)
     google_ok = _is_set(GOOGLE_API_KEY)
     openrouter_ok = _is_set(OPENROUTER_API_KEY) and _is_set(OPENROUTER_BASE_URL)
+    deepseek_ok = _is_set(DEEPSEEK_API_KEY)
 
     for k, cfg in _llm_config_map.items():
         cls = cfg.get("class")
         ctor = cfg.get("constructor_params", {}) or {}
 
         # OpenRouter models (ChatOpenAI with base_url set to OpenRouter)
-        if cls is ChatOpenAI and (ctor.get("base_url") == OPENROUTER_BASE_URL or "openrouter" in k):
+        if cls is ChatOpenAI and is_openrouter_endpoint(ctor.get("base_url"), k):
             if openrouter_ok:
+                gated_base_models.append(k)
+            continue
+
+        # DeepSeek models (ChatOpenAI with DeepSeek base_url)
+        if cls is ChatOpenAI and is_deepseek_endpoint(ctor.get("base_url"), k):
+            if deepseek_ok:
                 gated_base_models.append(k)
             continue
 

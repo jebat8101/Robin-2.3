@@ -55,6 +55,18 @@ docker run --rm \
    apurvsg/robin:latest
 ```
 
+> [!TIP]
+> To persist saved investigations across Docker restarts, mount a local directory:
+> ```bash
+> docker run --rm \
+>    -v "$(pwd)/.env:/app/.env" \
+>    -v "$(pwd)/investigations:/app/investigations" \
+>    --add-host=host.docker.internal:host-gateway \
+>    -p 8501:8501 \
+>    apurvsg/robin:latest
+> ```
+> Investigations are saved to the `investigations/` folder in your working directory and can be loaded from the **Past Investigations** panel in the left rail.
+
 - Open your browser and navigate to `http://localhost:8501`
 
 ### Using Python (Development Version)
@@ -68,7 +80,7 @@ streamlit run ui.py
 ### CLI
 ```bash
 git clone https://github.com/jebat8101/Robin-2.3.git
-cd Robin-2.3.git
+cd Robin-2.3
 
 cp .env.example .env
 nano .env

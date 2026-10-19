@@ -2,12 +2,19 @@ import re
 import openai
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from llm_utils import _common_llm_params, resolve_model_config, get_model_choices
+from llm_utils import (
+    _common_llm_params,
+    resolve_model_config,
+    get_model_choices,
+    is_deepseek_endpoint,
+    is_openrouter_endpoint,
+)
 from config import (
     OPENAI_API_KEY,
     ANTHROPIC_API_KEY,
     GOOGLE_API_KEY,
     OPENROUTER_API_KEY,
+    DEEPSEEK_API_KEY,
 )
 import logging
 import re
@@ -63,9 +70,11 @@ def _ensure_credentials(model_choice: str, llm_class, model_params: dict) -> Non
     elif "ChatGoogleGenerativeAI" in class_name:
         _require(GOOGLE_API_KEY, "GOOGLE_API_KEY", "Google Gemini")
     elif "ChatOpenAI" in class_name:
-        base_url = (model_params or {}).get("base_url", "").lower()
-        if "openrouter" in base_url:
+        base_url = (model_params or {}).get("base_url")
+        if is_openrouter_endpoint(base_url, model_choice):
             _require(OPENROUTER_API_KEY, "OPENROUTER_API_KEY", "OpenRouter")
+        elif is_deepseek_endpoint(base_url, model_choice):
+            _require(DEEPSEEK_API_KEY, "DEEPSEEK_API_KEY", "DeepSeek")
         else:
             _require(OPENAI_API_KEY, "OPENAI_API_KEY", "OpenAI")
 
