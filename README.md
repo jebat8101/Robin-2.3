@@ -41,9 +41,9 @@
 
 ### Docker [Recommended]
 
-- Pull the latest Robin docker image
+- Pull the image (this fork), or build: `docker build -t jebat8101/robin:latest .`
 ```bash
-docker pull apurvsg/robin:latest
+docker pull jebat8101/robin:latest
 ```
 
 - Run the docker image as:
@@ -52,7 +52,7 @@ docker run --rm \
    -v "$(pwd)/.env:/app/.env" \
    --add-host=host.docker.internal:host-gateway \
    -p 8501:8501 \
-   apurvsg/robin:latest
+   jebat8101/robin:latest
 ```
 
 > [!TIP]
@@ -63,7 +63,7 @@ docker run --rm \
 >    -v "$(pwd)/investigations:/app/investigations" \
 >    --add-host=host.docker.internal:host-gateway \
 >    -p 8501:8501 \
->    apurvsg/robin:latest
+>    jebat8101/robin:latest
 > ```
 > Investigations are saved to the `investigations/` folder in your working directory and can be loaded from the **Past Investigations** panel in the left rail.
 
