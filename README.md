@@ -74,6 +74,8 @@ docker run --rm \
 - With `Python 3.10+` and Tor installed, run the following:
 
 ```bash
+cp .env.example .env
+# Edit .env: add a cloud API key, or keep OLLAMA_BASE_URL for local Ollama
 pip install -r requirements.txt
 streamlit run ui.py
 ```
