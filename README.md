@@ -1,5 +1,5 @@
 <div align="center">
-   <img src=".github/assets/logo.png" alt="Logo" width="300">
+   <img src=".github/assets/logo1.png" alt="Logo" width="300">
    <br><a href="https://github.com/apurvsinghgautam/robin/actions/workflows/release.yml"><img alt="Release" src="https://github.com/apurvsinghgautam/robin/actions/workflows/release.yml/badge.svg"></a> <a href="https://github.com/apurvsinghgautam/robin/releases"><img alt="GitHub Release" src="https://img.shields.io/github/v/release/apurvsinghgautam/robin"></a> <a href="https://hub.docker.com/r/apurvsg/robin"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/apurvsg/robin"></a>
    <h1>Robin: AI-Powered Dark Web OSINT Tool</h1>
 
@@ -7,7 +7,7 @@
    <a href="#installation">Installation</a> &bull; <a href="#usage">Usage</a> &bull; <a href="#contributing">Contributing</a> &bull; <a href="#acknowledgements">Acknowledgements</a><br><br>
 </div>
 
-![Demo](.github/assets/screen-ui.png)
+![Demo](.github/assets/dashboard.png)
 ![Workflow](.github/assets/robin-workflow.png)
 
 ---
