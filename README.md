@@ -46,6 +46,9 @@
 docker pull jebat8101/robin:latest
 ```
 
+> [!NOTE]
+> `docker pull` works only after the image is published to Docker Hub. Add repo secret `DOCKER_ACCESS_TOKEN` (Docker Hub access token for `jebat8101`), then run the **DockerHub Release** workflow on GitHub Actions or push to `main`. Until then, use `docker build -t jebat8101/robin:latest .` locally.
+
 - Run the docker image as:
 ```bash
 docker run --rm \
