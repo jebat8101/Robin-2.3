@@ -81,6 +81,7 @@ cp .env.example .env
 # Edit .env: add a cloud API key, or keep OLLAMA_BASE_URL for local Ollama
 pip install -r requirements.txt
 streamlit run ui.py
+# or: python -m venv venv && ./venv/bin/streamlit run ui.py
 ```
 ### CLI
 ```bash
