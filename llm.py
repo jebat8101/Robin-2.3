@@ -12,6 +12,7 @@ from llm_utils import (
 from config import (
     OPENAI_API_KEY,
     ANTHROPIC_API_KEY,
+    ANTHROPIC_WORKSPACE_ID,
     GOOGLE_API_KEY,
     OPENROUTER_API_KEY,
     DEEPSEEK_API_KEY,
@@ -46,11 +47,28 @@ def get_llm(model_choice):
     # Validate that the required credentials exist before we hit the API
     _ensure_credentials(model_choice, llm_class, model_specific_params)
 
+    all_params = _apply_provider_params(llm_class, all_params)
+
     # Create the LLM instance using the gathered parameters
     llm_instance = llm_class(**all_params)
 
     return llm_instance
 
+
+
+def _apply_provider_params(llm_class, params: dict) -> dict:
+    """Attach provider-specific auth (e.g. Anthropic workspace header)."""
+    params = dict(params)
+    class_name = getattr(llm_class, "__name__", str(llm_class))
+
+    if "ChatAnthropic" in class_name:
+        if ANTHROPIC_API_KEY:
+            params.setdefault("api_key", ANTHROPIC_API_KEY)
+        if ANTHROPIC_WORKSPACE_ID:
+            headers = dict(params.get("default_headers") or {})
+            headers["anthropic-workspace-id"] = ANTHROPIC_WORKSPACE_ID
+            params["default_headers"] = headers
+    return params
 
 def _ensure_credentials(model_choice: str, llm_class, model_params: dict) -> None:
     """Raise a clear error if the user selects a hosted model without a key."""
@@ -67,6 +85,16 @@ def _ensure_credentials(model_choice: str, llm_class, model_params: dict) -> Non
 
     if "ChatAnthropic" in class_name:
         _require(ANTHROPIC_API_KEY, "ANTHROPIC_API_KEY", "Anthropic")
+        if (
+            ANTHROPIC_API_KEY
+            and ANTHROPIC_API_KEY.startswith("sk-ant-usr-")
+            and not ANTHROPIC_WORKSPACE_ID
+        ):
+            raise ValueError(
+                "Anthropic user API keys (sk-ant-usr-…) require ANTHROPIC_WORKSPACE_ID in .env. "
+                "Find the workspace ID in the Anthropic Console (Settings → Workspaces), "
+                "or use a workspace-scoped API key, or select a local Ollama model."
+            )
     elif "ChatGoogleGenerativeAI" in class_name:
         _require(GOOGLE_API_KEY, "GOOGLE_API_KEY", "Google Gemini")
     elif "ChatOpenAI" in class_name:

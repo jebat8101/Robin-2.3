@@ -936,6 +936,8 @@ def _render_pipeline_error(stage: str, err: Exception) -> None:
         hints.insert(0, "- The provider accepted the key, but the account behind it is out of credit or quota — top up that provider's billing, or switch to another model in the Config rail.")
     elif any(token in lower_msg for token in ("anthropic", "x-api-key", "invalid api key", "authentication")):
         hints.insert(0, "- Claude/Anthropic models require a valid `ANTHROPIC_API_KEY`.")
+    if "anthropic-workspace-id" in lower_msg:
+        hints.insert(0, "- User-scoped Anthropic keys need `ANTHROPIC_WORKSPACE_ID` in `.env` (Anthropic Console → Workspaces), or use an Ollama model.")
     elif "openrouter" in lower_msg or "user not found" in lower_msg or "code: 401" in lower_msg:
         hints.insert(0, "- OpenRouter 401/User not found usually means the API key is invalid/expired or has leading/trailing characters.")
         hints.insert(1, "- Set `OPENROUTER_API_KEY` without extra spaces and verify the key is active in your OpenRouter account.")
