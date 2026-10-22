@@ -157,6 +157,20 @@ def env_is_set(value) -> bool:
     return bool(value and str(value).strip() and "your_" not in str(value))
 
 
+
+
+def _pick_default_model_index(options: list[str]) -> int:
+    """Prefer local Ollama models when cloud keys are incomplete."""
+    preferred = ("llama3.2:latest", "llama3.2", "qwen3.5:9b", "gpt-4.1")
+    lowered = {name.lower(): idx for idx, name in enumerate(options)}
+    for name in preferred:
+        if name in lowered:
+            return lowered[name]
+    for idx, name in enumerate(options):
+        if str(name).strip().lower() not in _llm_config_map:
+            return idx
+    return 0
+
 def provider_of(model: str) -> str:
     cfg = _llm_config_map.get(str(model).strip().lower())
     if not cfg:
@@ -682,9 +696,7 @@ _preset_labels = list(PRESET_OPTIONS.keys())
 if _ss.get("preset_pills") not in _preset_labels:
     _ss.pop("preset_pills", None)
 
-default_model_index = next(
-    (idx for idx, name in enumerate(model_options) if name.lower() == "gpt4o"), 0
-)
+default_model_index = _pick_default_model_index(model_options)
 
 # --- Pre-flight ---
 

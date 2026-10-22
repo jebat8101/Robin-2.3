@@ -16,6 +16,7 @@ from config import (
     GOOGLE_API_KEY,
     OPENAI_API_KEY,
     ANTHROPIC_API_KEY,
+    ANTHROPIC_WORKSPACE_ID,
     LLAMA_CPP_BASE_URL,
 )
 
@@ -270,6 +271,14 @@ def fetch_llama_cpp_models() -> List[str]:
 
 
 
+def _anthropic_configured() -> bool:
+    if not _is_set(ANTHROPIC_API_KEY):
+        return False
+    if str(ANTHROPIC_API_KEY).startswith("sk-ant-usr-") and not _is_set(ANTHROPIC_WORKSPACE_ID):
+        return False
+    return True
+
+
 def _is_set(v: Optional[str]) -> bool:
     return bool(v and str(v).strip() and "your_" not in str(v))
 
@@ -310,7 +319,7 @@ def get_model_choices() -> List[str]:
     gated_base_models: List[str] = []
 
     openai_ok = _is_set(OPENAI_API_KEY)
-    anthropic_ok = _is_set(ANTHROPIC_API_KEY)
+    anthropic_ok = _anthropic_configured()
     google_ok = _is_set(GOOGLE_API_KEY)
     openrouter_ok = _is_set(OPENROUTER_API_KEY) and _is_set(OPENROUTER_BASE_URL)
     deepseek_ok = _is_set(DEEPSEEK_API_KEY)
